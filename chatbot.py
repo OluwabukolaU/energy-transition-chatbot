@@ -46,9 +46,9 @@ def ask_claude(user_input):
         return "Something went wrong: " + str(e)
 
 
-# ... your imports and variables at top ...
 
-def log_conversation(role, message):      # ← add here
+
+def log_conversation(role, message):      
     with open("conversation.txt", "a", encoding="utf-8") as f:
         f.write(role + ": " + message + "\n")
 
@@ -57,10 +57,10 @@ while True:
     if user_input == "quit":
         break
     history.append({"role": "user", "content": user_input})
-    log_conversation("You", user_input)      # ← log user message
+    log_conversation("You", user_input)      
     reply = ask_claude(user_input)
     history.append({"role": "assistant", "content": reply})
-    log_conversation("Claude", reply)        # ← log Claude's reply
+    log_conversation("Claude", reply)        
     print(reply)
 
 print("Goodbye!")
