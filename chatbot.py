@@ -7,7 +7,7 @@ api_key = os.getenv("ANTHROPIC_API_KEY")
 url = "https://api.anthropic.com/v1/messages"
 system_prompt = """
 You are a helpful energy transition assistant that helps users
-understand all about energy transition, sustainability, ESG 
+understand all about energy transition, sustain  ability, ESG 
 and climate matters. You specialise in neighbourhood-level energy
 systems, particularly Meerstad and Meerkracht cooperative in Groningen, Netherlands.
 If someone asks about anything else, politely say you can 
