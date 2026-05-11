@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Research Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="bg-grid"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">⚡</div>
+            <h1>Energy Research Agent</h1>
+            <p class="tagline">EU & NL Policy Intelligence — Consultant Grade</p>
+        </header>
+
+        <div class="upload-section">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="drop-zone" id="dropZone">
+                    <div class="drop-icon">📄</div>
+                    <p>Drop EU/NL energy reports here</p>
+                    <span>or</span>
+                    <label class="file-btn">
+                        Browse Files
+                        <input type="file" id="fileInput" multiple accept=".pdf" hidden>
+                    </label>
+                </div>
+                <div class="url-input">
+                    <input type="text" id="urlInput" placeholder="Or paste a report URL...">
+                    <button type="button" id="addUrl">Add URL</button>
+                </div>
+            </form>
+
+            <div id="documentList" class="document-list hidden">
+                <h3>Loaded Documents</h3>
+                <ul id="docItems"></ul>
+            </div>
+        </div>
+
+        <div class="chat-section" id="chatSection">
+            <div class="messages" id="messages">
+                <div class="message agent">
+                    <span class="agent-label">⚡ Agent</span>
+                    <p>Upload EU or NL energy reports above and ask me anything. I'll answer like a consultant — with citations and follow-up questions.</p>
+                </div>
+            </div>
+
+            <div class="input-bar">
+                <input type="text" id="questionInput" placeholder="Ask a research question..." disabled>
+                <button id="askBtn" disabled>Ask</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
