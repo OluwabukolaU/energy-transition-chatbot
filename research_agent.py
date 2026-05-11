@@ -30,10 +30,20 @@ def scrape_url(url):
 
 # Extract and confirm
 # Decide PDF or URL
-if pdf_path.startswith("https://"):
-    document_text = scrape_url(pdf_path)
-else:
-    document_text = extract_pdf_text(pdf_path)
+# Ask for multiple PDFs
+print("\nEnter PDF paths one by one. Type 'done' when finished:")
+all_text = ""
+while True:
+    pdf_path = input("Enter PDF path or URL (or 'done'): ")
+    if pdf_path.lower() == "done":
+        break
+    if pdf_path.startswith("https://"):
+        all_text += scrape_url(pdf_path)
+    else:
+        all_text += extract_pdf_text(pdf_path)
+    print(f"✅ Document loaded! Total: {len(all_text)} characters")
+
+document_text = all_text
 print("\n✅ Document uploaded successfully!")
 print(f"📄 Extracted {len(document_text)} characters")
 
