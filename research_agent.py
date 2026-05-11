@@ -11,8 +11,7 @@ print("=" * 50)
 print(" Energy Research Agent ")
 print("=" * 50)
 
-pdf_path = input("\nEnter the path to the PDF document: ")
-
+pdf_path = input("\nEnter PDF path or URL: ")
 # Extract text from PDF
 def extract_pdf_text(pdf_path):
     text = ''
@@ -22,8 +21,19 @@ def extract_pdf_text(pdf_path):
             text += page.extract_text()
     return text
 
+# Scrape text from URL
+def scrape_url(url):
+    response = requests.get(url)
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(response.text, "html.parser")
+    return soup.get_text()
+
 # Extract and confirm
-document_text = extract_pdf_text(pdf_path)
+# Decide PDF or URL
+if pdf_path.startswith("https://"):
+    document_text = scrape_url(pdf_path)
+else:
+    document_text = extract_pdf_text(pdf_path)
 print("\n✅ Document uploaded successfully!")
 print(f"📄 Extracted {len(document_text)} characters")
 
