@@ -139,3 +139,41 @@ function showTyping() {
   messages.scrollTop = messages.scrollHeight;
   return div;
 }
+
+// Load memory on startup
+async function loadMemory() {
+    const res = await fetch('/memory');
+    const data = await res.json();
+    
+    const memoryList = document.getElementById('memoryList');
+    memoryList.innerHTML = '';
+    
+    if (data.sessions.length === 0) {
+        memoryList.innerHTML = '<li>No research history yet</li>';
+        return;
+    }
+    
+    // Show most recent first
+    data.sessions.reverse().forEach(session => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="memory-question">🔍 ${session.question}</div>
+            <div class="memory-time">Click to view answer</div>
+        `;
+        li.addEventListener('click', () => {
+            addMessage('user', session.question);
+            addMessage('agent', session.answer);
+        });
+        memoryList.appendChild(li);
+    });
+}
+
+function toggleMemory() {
+    const content = document.getElementById('memoryContent');
+    const toggle = document.getElementById('memoryToggle');
+    content.classList.toggle('hidden');
+    toggle.textContent = content.classList.contains('hidden') ? '▼' : '▲';
+}
+
+// Load memory when page opens
+loadMemory();

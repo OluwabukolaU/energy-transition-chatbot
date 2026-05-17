@@ -1,4 +1,5 @@
 import os
+import json
 import uuid
 import PyPDF2
 import requests
@@ -13,6 +14,21 @@ client = Anthropic()
 
 # Store documents in memory
 documents = {}
+
+# Memory file
+MEMORY_FILE = "memory.json"
+
+def load_memory():
+    if os.path.exists(MEMORY_FILE):
+        with open(MEMORY_FILE, "r") as f:
+            return json.load(f)
+    return {"sessions": []}
+
+def save_memory(session):
+    memory = load_memory()
+    memory["sessions"].append(session)
+    with open(MEMORY_FILE, "w") as f:
+        json.dump(memory, f, indent=2)
 
 @app.route('/')
 def index():
@@ -74,7 +90,23 @@ Answer like a consultant. Include:
     )
     
     answer = response.content[0].text
+    answer = response.content[0].text
+
+# Save to memory
+    save_memory({
+        "question": question,
+        "answer": answer,
+        "doc_ids": doc_ids
+    })
     return jsonify({ 'answer': answer })
+
+@app.route('/memory', methods=['GET'])
+def get_memory():
+    memory = load_memory()
+    return jsonify(memory)
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
